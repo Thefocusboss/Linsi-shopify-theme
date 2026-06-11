@@ -8,7 +8,7 @@
 
   <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
     
-    {/* Header */}
+    {% comment %} Header {% endcomment %}
     <div class="text-center max-w-2xl mx-auto mb-20">
       <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
         {{ section.settings.chapter_title | escape }}
@@ -21,7 +21,7 @@
       </p>
     </div>
 
-    {/* Stories Grid */}
+    {% comment %} Stories Grid {% endcomment %}
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start r4r-stories-grid">
       {%- for block in section.blocks -%}
         <div
@@ -31,7 +31,7 @@
         >
           <div class="flex flex-col r4r-story-flex">
             
-            {/* Photo cover container */}
+            {% comment %} Photo cover container {% endcomment %}
             <div class="relative overflow-hidden shrink-0 h-[280px] w-full r4r-story-photo">
               {%- if block.settings.image != blank -%}
                 <img
@@ -45,7 +45,7 @@
                 </div>
               {%- endif -%}
 
-              {/* Color wash overlay */}
+              {% comment %} Color wash overlay {% endcomment %}
               {%- if block.settings.overlay_color != blank -%}
                 <div
                   class="absolute inset-0 opacity-15 mix-blend-overlay"
@@ -54,7 +54,7 @@
               {%- endif -%}
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
               
-              {/* Small overlay badge on photo */}
+              {% comment %} Small overlay badge on photo {% endcomment %}
               <div class="absolute bottom-6 left-6 z-10 text-beige-light">
                 <span class="font-sans text-[10px] tracking-widest uppercase font-semibold text-gold-light">
                   {{ block.settings.role | escape }}
@@ -65,10 +65,10 @@
               </div>
             </div>
 
-            {/* Narrative details container */}
+            {% comment %} Narrative details container {% endcomment %}
             <div class="p-8 md:p-10 flex flex-col justify-between flex-grow r4r-story-details">
               <div>
-                {/* Quote layout */}
+                {% comment %} Quote layout {% endcomment %}
                 <div class="relative">
                   <svg class="w-10 h-10 text-gold-medium/15 absolute -top-4 -left-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.995 2.638-4.995 5.813h4.995V21H14.017Zm-11 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.154c-2.433.914-5.006 2.636-5.006 5.81h5.006V21H3.017Z"></path>
@@ -78,7 +78,7 @@
                   </p>
                 </div>
 
-                {/* Expandable full story block */}
+                {% comment %} Expandable full story block {% endcomment %}
                 <div class="r4r-story-bio max-h-0 opacity-0 pointer-events-none overflow-hidden transition-all duration-500">
                   <div class="border-t border-emerald-medium/10 pt-6 mt-6 space-y-4">
                     <h5 class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium">
@@ -91,7 +91,7 @@
                 </div>
               </div>
 
-              {/* Expand Inline CTA */}
+              {% comment %} Expand Inline CTA {% endcomment %}
               <div class="mt-8 pt-4 border-t border-emerald-medium/5 flex justify-end">
                 <button
                   type="button"

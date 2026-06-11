@@ -9,7 +9,7 @@
 
   <div class="max-w-4xl mx-auto px-6 relative z-10">
     
-    {/* Title */}
+    {% comment %} Title {% endcomment %}
     <div class="text-center mb-16">
       <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
         {{ section.settings.chapter_title | escape }}
@@ -22,7 +22,7 @@
       </p>
     </div>
 
-    {/* Accordion List */}
+    {% comment %} Accordion List {% endcomment %}
     <div class="space-y-4 r4r-faq-list">
       {%- for block in section.blocks -%}
         <div
@@ -40,7 +40,7 @@
             <svg class="r4r-faq-icon w-5 h-5 text-emerald-medium transition-transform duration-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path></svg>
           </button>
 
-          {/* Animated Drawer */}
+          {% comment %} Animated Drawer {% endcomment %}
           <div class="r4r-faq-drawer max-h-0 opacity-0 pointer-events-none overflow-hidden transition-all duration-500 ease-in-out">
             <p class="p-6 text-sm md:text-base text-charcoal/75 font-sans leading-relaxed font-light border-t border-emerald-medium/5">
               {{ block.settings.answer | escape }}
