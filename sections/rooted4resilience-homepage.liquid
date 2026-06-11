@@ -1,0 +1,107 @@
+{% comment %}
+  Rooted 4 Resilience Homepage Section
+  This section mounts the React app on the element <div id="root"></div>.
+  All compiled JS/CSS resources must be placed in the Shopify theme Assets folder.
+  All theme settings are loaded dynamically into React through the global window object.
+{% endcomment %}
+
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<script>
+  // Dynamic settings passed from the Shopify Theme Editor
+  window.R4R_THEME_SETTINGS = {
+    announcementText: {{ section.settings.announcement_text | json }},
+    heroHeadline: {{ section.settings.hero_headline | json }},
+    heroSubheadline: {{ section.settings.hero_subheadline | json }},
+    heroVideoUrl: {{ section.settings.hero_video_url | json }},
+    heroCTA: {{ section.settings.hero_cta | json }},
+    founderName: {{ section.settings.founder_name | json }},
+    founderTitle: {{ section.settings.founder_title | json }},
+    founderQuote: {{ section.settings.founder_quote | json }}
+  };
+
+  // Asset mapping to Shopify CDN URLs so React can fetch local assets correctly
+  window.R4R_ASSETS = {
+    logoWhite: "{{ 'logo-white.png' | asset_url }}",
+    logoDark: "{{ 'logo-dark.png' | asset_url }}",
+    founderImg: "{{ 'founder.png' | asset_url }}"
+  };
+</script>
+
+<!-- React Application Mount Point -->
+<div id="root" style="min-height: 100vh; background-color: #fdfbf7;"></div>
+
+{{ 'r4r-bundle.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "R4R Premium Homepage",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "$5 from every order supports women, mothers, and families in resilience."
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline",
+      "label": "Hero Headline",
+      "default": "Resilience Looks Good on You"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheadline",
+      "label": "Hero Subheadline",
+      "default": "Luxury organic apparel backing our non-profit mission to support, elevate, and empower mothers and communities."
+    },
+    {
+      "type": "text",
+      "id": "hero_video_url",
+      "label": "Hero Video URL (MP4 Link)",
+      "default": "https://assets.mixkit.co/videos/preview/mixkit-group-of-women-talking-smiling-and-hugging-39879-large.mp4"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta",
+      "label": "Hero Call-To-Action Button",
+      "default": "Wear Your Resilience"
+    },
+    {
+      "type": "header",
+      "content": "Founder Section"
+    },
+    {
+      "type": "text",
+      "id": "founder_name",
+      "label": "Founder Name",
+      "default": "Linsi"
+    },
+    {
+      "type": "text",
+      "id": "founder_title",
+      "label": "Founder Title",
+      "default": "Founder & Creative Director"
+    },
+    {
+      "type": "textarea",
+      "id": "founder_quote",
+      "label": "Founder Quote Summary",
+      "default": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Premium Homepage"
+    }
+  ]
+}
+{% endschema %}
