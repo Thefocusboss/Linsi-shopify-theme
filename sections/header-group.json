@@ -84,6 +84,17 @@
         "collection_color_scheme": "inverse"
       }
     },
+    "rooted4resilience_header_GzKrTD": {
+      "type": "rooted4resilience-header",
+      "disabled": true,
+      "name": "R4R Premium Navigation",
+      "settings": {
+        "announcement_text": "$5 from every order supports women, mothers, and families in resilience.",
+        "menu": "main-menu",
+        "cta_text": "Pre-Order Now",
+        "cta_link": ""
+      }
+    },
     "rooted4resilience_homepage_nYPRen": {
       "type": "rooted4resilience-homepage",
       "name": "R4R Premium Homepage",
@@ -112,11 +123,70 @@
         "founder_title": "Founder & Creative Director",
         "founder_quote": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
       }
+    },
+    "rooted4resilience_podcast_wtxFr3": {
+      "type": "rooted4resilience-podcast",
+      "blocks": {
+        "episode_HwqAW9": {
+          "type": "episode",
+          "settings": {
+            "title": "Finding Your Breath After Birth",
+            "season": "1",
+            "episode": "1",
+            "guest": "Clara Ostova",
+            "guest_role": "Postpartum Doula",
+            "description": "In this episode Clara shares practical breathing techniques, circle support dynamics, and physical recovery expectations.",
+            "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "28:45"
+          }
+        },
+        "episode_KdLMyE": {
+          "type": "episode",
+          "settings": {
+            "title": "Empowered Parenting & Resilience",
+            "season": "1",
+            "episode": "2",
+            "guest": "Marcus Aurelius",
+            "guest_role": "Founder, Fatherhood Circle",
+            "description": "Marcus breaks down the role of fatherhood groups, active partner care, and building resilient homes.",
+            "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "35:10"
+          }
+        }
+      },
+      "block_order": [
+        "episode_HwqAW9",
+        "episode_KdLMyE"
+      ],
+      "name": "R4R Podcast Catalog",
+      "settings": {
+        "chapter_title": "Chapter 06 • Podcast",
+        "heading": "Voices That Inspire",
+        "subheading": "Listen in to conversations with advocates, mothers, and therapists on mental health and community resilience."
+      }
+    },
+    "rooted4resilience_shop_preview_UBMPjW": {
+      "type": "rooted4resilience-shop-preview",
+      "name": "R4R Shop Preview",
+      "settings": {
+        "chapter_title": "Chapter 03 • Featured Collection",
+        "heading": "Wear Your Resilience",
+        "subheading": "Organic threads woven with purpose. Each garment carries a $5 contribution towards mothers in need.",
+        "collection_1": "",
+        "collection_1_title": "",
+        "collection_2": "",
+        "collection_2_title": "",
+        "collection_3": "",
+        "collection_3_title": ""
+      }
     }
   },
   "order": [
     "header_section",
+    "rooted4resilience_header_GzKrTD",
     "rooted4resilience_homepage_nYPRen",
-    "rooted4resilience_founder_story_yxQNN4"
+    "rooted4resilience_founder_story_yxQNN4",
+    "rooted4resilience_podcast_wtxFr3",
+    "rooted4resilience_shop_preview_UBMPjW"
   ]
 }
