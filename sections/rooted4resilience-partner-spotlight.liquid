@@ -1,0 +1,212 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="partners"
+  class="py-24 md:py-32 bg-beige-light relative overflow-hidden"
+>
+  {% comment %} Decorative blur bubbles {% endcomment %}
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-emerald-medium/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute top-1/3 right-0 -translate-y-1/2 w-80 h-80 bg-gold-medium/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+    {/* Title */}
+    <div class="text-center max-w-2xl mx-auto mb-20">
+      <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
+        {{ section.settings.chapter_title | escape }}
+      </span>
+      <h2 class="font-serif font-semibold text-3xl md:text-5xl text-emerald-dark mb-4">
+        {{ section.settings.heading | escape }}
+      </h2>
+      <p class="font-sans text-charcoal/60 font-light text-base md:text-lg">
+        {{ section.settings.subheading | escape }}
+      </p>
+    </div>
+
+    {/* Partners Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {%- for block in section.blocks -%}
+        <div
+          class="group relative bg-beige-dark rounded-2xl p-8 md:p-10 border border-emerald-medium/5 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col justify-between"
+          {{ block.shopify_attributes }}
+        >
+          {/* Gold Top line effect */}
+          <div class="absolute top-0 left-8 right-8 h-[2px] bg-gold-medium/40 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"></div>
+
+          <div>
+            {/* Header Icon + Partner Initials logo */}
+            <div class="flex items-center justify-between mb-8">
+              <div class="w-12 h-12 rounded-xl bg-beige-light border border-emerald-medium/10 flex items-center justify-center shadow-inner">
+                {%- case block.settings.icon -%}
+                  {%- when 'heart' -%}
+                    <svg class="w-6 h-6 text-gold-medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                    </svg>
+                  {%- when 'award' -%}
+                    <svg class="w-6 h-6 text-gold-medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  {%- else -%}
+                    <svg class="w-6 h-6 text-gold-medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58-1 9.8A7 7 0 0 1 11 20z"></path>
+                      <path d="M9 22v-4h4"></path>
+                    </svg>
+                {%- endcase -%}
+              </div>
+              <span class="font-serif italic text-2xl font-black text-emerald-dark/15 tracking-wider select-none">
+                {{ block.settings.logo_text | escape }}
+              </span>
+            </div>
+
+            {/* Partner Name & Description */}
+            <h3 class="font-serif font-semibold text-xl md:text-2xl text-emerald-dark mb-4 group-hover:text-gold-medium transition-colors duration-300">
+              {{ block.settings.title | escape }}
+            </h3>
+            
+            <p class="font-sans text-sm md:text-base text-charcoal/70 leading-relaxed font-light mb-6">
+              {{ block.settings.description | escape }}
+            </p>
+          </div>
+
+          {/* Impact Tag details */}
+          <div class="border-t border-emerald-medium/10 pt-6 mt-6">
+            <span class="font-sans text-xs tracking-widest font-medium uppercase text-charcoal/40 block mb-2">
+              Active Contribution
+            </span>
+            
+            <div class="flex items-center gap-2 text-emerald-medium">
+              <svg class="w-4 h-4 text-gold-medium shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+              <span class="font-sans text-sm font-semibold tracking-wide">
+                {{ block.settings.impact_metric | escape }}
+              </span>
+            </div>
+            
+            <span class="font-sans text-xs text-charcoal/60 mt-1 block italic font-light">
+              {{ block.settings.contribution | escape }}
+            </span>
+          </div>
+        </div>
+      {%- else -%}
+        <p class="col-span-3 text-center text-charcoal/50 italic py-12">No partners added yet. Please configure partner blocks in the Theme Customizer.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "R4R Partner Spotlight",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chapter_title",
+      "label": "Chapter Title",
+      "default": "Chapter 04 • Partner Spotlight"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Where Your Impact Goes"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We partner with vetted, boots-on-the-ground non-profit organizations supporting mothers and families."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "partner",
+      "name": "Partner Organization",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Partner Name",
+          "default": "Mother's Haven"
+        },
+        {
+          "type": "text",
+          "id": "logo_text",
+          "label": "Logo Initials/Abbreviation",
+          "default": "MH"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A local non-profit supplying safe temporary housing and baby care goods to single mothers experiencing crisis."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "award", "label": "Award" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "impact_metric",
+          "label": "Impact Metric",
+          "default": "1,500+ Nights Funded"
+        },
+        {
+          "type": "text",
+          "id": "contribution",
+          "label": "Contribution Detail",
+          "default": "Direct housing grants from GOTS-organic swaddle sales."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Partner Spotlight",
+      "blocks": [
+        {
+          "type": "partner",
+          "settings": {
+            "title": "Maternal Mind Coalition",
+            "logo_text": "MMC",
+            "description": "Funding free professional therapy sessions and postpartum support groups for new mothers.",
+            "icon": "heart",
+            "impact_metric": "300+ Hours Therapy",
+            "contribution": "Supported by the organic apparel launch proceeds."
+          }
+        },
+        {
+          "type": "partner",
+          "settings": {
+            "title": "Empowered Maternity",
+            "logo_text": "EM",
+            "description": "Providing newborn bundles, essential nourishment, and parenting circles in under-resourced areas.",
+            "icon": "award",
+            "impact_metric": "850+ Bundles Distributed",
+            "contribution": "Direct kit donations from purchase margins."
+          }
+        },
+        {
+          "type": "partner",
+          "settings": {
+            "title": "Resilience Circle",
+            "logo_text": "RC",
+            "description": "Our core foundation supporting boots-on-the-ground support networks, circles, and financial recovery grants.",
+            "icon": "leaf",
+            "impact_metric": "$5 Per Item Allocated",
+            "contribution": "Divided evenly between the active partner initiatives."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

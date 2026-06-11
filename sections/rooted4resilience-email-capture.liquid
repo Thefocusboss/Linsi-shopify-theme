@@ -1,0 +1,184 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="join"
+  class="py-24 bg-emerald-dark text-beige-light relative overflow-hidden"
+>
+  {% comment %} Background stardust glow {% endcomment %}
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-medium/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto px-6 relative z-10 text-center">
+    <div class="flex justify-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-emerald-medium/30 flex items-center justify-center border border-gold-light/20 shadow-md">
+        <svg class="w-5 h-5 text-gold-medium" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58-1 9.8A7 7 0 0 1 11 20z"></path><path d="M9 22v-4h4"></path></svg>
+      </div>
+    </div>
+
+    <h2 class="font-serif font-semibold text-3xl md:text-5xl text-beige-light mb-4">
+      {{ section.settings.heading | escape }}
+    </h2>
+    
+    <p class="font-sans text-beige-light/75 font-light text-base md:text-lg mb-12 max-w-xl mx-auto">
+      {{ section.settings.subheading | escape }}
+    </p>
+
+    {%- form 'customer', class: 'text-left max-w-lg mx-auto r4r-email-form' -%}
+      {%- if form.posted_successfully? -%}
+        {% comment %} Success State {% endcomment %}
+        <div class="bg-emerald-medium/20 border border-gold-medium/30 p-8 md:p-10 rounded-3xl max-w-md mx-auto text-center shadow-lg animate-fade-in">
+          <div class="w-12 h-12 bg-gold-medium text-beige-light rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+            <svg class="w-6 h-6 stroke-[3px]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h3 class="font-serif font-semibold text-xl text-beige-light mb-2">
+            You're on the list!
+          </h3>
+          <p class="font-sans text-xs text-beige-light/65 leading-relaxed font-light">
+            Thank you for standing with us. We will send collection announcements and local motherhood circle details to your inbox shortly.
+          </p>
+        </div>
+      {%- else -%}
+        {% comment %} Form fields {% endcomment %}
+        <div class="space-y-6">
+          <input type="hidden" name="contact[tags]" value="newsletter, r4r_movement">
+          
+          {%- if form.errors -%}
+            <div class="bg-red-500/10 border border-red-500/30 text-red-200 text-xs p-4 rounded-xl mb-6 font-sans">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          {/* Name Input */}
+          <div>
+            <label class="block font-sans text-xs uppercase tracking-widest font-semibold text-gold-light mb-2">
+              Your Name
+            </label>
+            <input
+              type="text"
+              name="contact[first_name]"
+              required
+              placeholder="Elena Rostova"
+              class="w-full bg-emerald-medium/15 border border-beige-light/10 focus:border-gold-medium focus:outline-none px-5 py-4 rounded-xl font-sans text-beige-light placeholder-beige-light/35 transition-colors duration-300"
+            />
+          </div>
+
+          {/* Email Input */}
+          <div>
+            <label class="block font-sans text-xs uppercase tracking-widest font-semibold text-gold-light mb-2">
+              Email Address
+            </label>
+            <div class="relative">
+              <input
+                type="email"
+                name="contact[email]"
+                required
+                placeholder="elena@example.com"
+                class="w-full bg-emerald-medium/15 border border-beige-light/10 focus:border-gold-medium focus:outline-none pl-12 pr-5 py-4 rounded-xl font-sans text-beige-light placeholder-beige-light/35 transition-colors duration-300"
+              />
+              <svg class="w-5 h-5 text-beige-light/35 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            </div>
+          </div>
+
+          {/* Interest Checkboxes */}
+          <div>
+            <label class="block font-sans text-xs uppercase tracking-widest font-semibold text-gold-light mb-3">
+              Interests (Select all that apply)
+            </label>
+            <div class="flex flex-col gap-3">
+              <label class="r4r-interest-label flex items-center gap-3 px-4 py-3 rounded-xl border border-beige-light/5 bg-emerald-medium/5 text-beige-light/65 hover:bg-emerald-medium/10 cursor-pointer select-none transition-all duration-300">
+                <input type="checkbox" name="contact[note][Product Preorders]" value="yes" class="hidden r4r-interest-checkbox">
+                <div class="check-box-indicator w-4 h-4 rounded border border-beige-light/30 flex items-center justify-center transition-colors">
+                  <svg class="w-3 h-3 stroke-[3px] text-beige-light hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span class="font-sans text-sm font-light tracking-wide">Product Pre-Orders</span>
+              </label>
+
+              <label class="r4r-interest-label flex items-center gap-3 px-4 py-3 rounded-xl border border-beige-light/5 bg-emerald-medium/5 text-beige-light/65 hover:bg-emerald-medium/10 cursor-pointer select-none transition-all duration-300">
+                <input type="checkbox" name="contact[note][Apply Ambassador]" value="yes" class="hidden r4r-interest-checkbox">
+                <div class="check-box-indicator w-4 h-4 rounded border border-beige-light/30 flex items-center justify-center transition-colors">
+                  <svg class="w-3 h-3 stroke-[3px] text-beige-light hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span class="font-sans text-sm font-light tracking-wide">Apply as Ambassador</span>
+              </label>
+
+              <label class="r4r-interest-label flex items-center gap-3 px-4 py-3 rounded-xl border border-beige-light/5 bg-emerald-medium/5 text-beige-light/65 hover:bg-emerald-medium/10 cursor-pointer select-none transition-all duration-300">
+                <input type="checkbox" name="contact[note][Join Mother Circles]" value="yes" class="hidden r4r-interest-checkbox">
+                <div class="check-box-indicator w-4 h-4 rounded border border-beige-light/30 flex items-center justify-center transition-colors">
+                  <svg class="w-3 h-3 stroke-[3px] text-beige-light hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span class="font-sans text-sm font-light tracking-wide">Join Local Mother Circles</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          class="w-full mt-8 bg-gold-medium hover:bg-gold-dark text-beige-light font-sans text-xs sm:text-sm tracking-widest font-semibold uppercase py-4 rounded-xl shadow-lg transition-transform hover:scale-101 active:scale-99 border border-gold-light/20"
+        >
+          Subscribe & Join Us
+        </button>
+      {%- endif -%}
+    {%- endform -%}
+
+  </div>
+</section>
+
+{% comment %} Vanilla JS checkboxes styling logic {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const labels = document.querySelectorAll("#join .r4r-interest-label");
+    labels.forEach(label => {
+      const checkbox = label.querySelector(".r4r-interest-checkbox");
+      const indicator = label.querySelector(".check-box-indicator");
+      const checkIcon = indicator.querySelector("svg");
+
+      label.addEventListener("click", function(e) {
+        // Prevent label double trigger on click
+        if (e.target === checkbox) return;
+        
+        checkbox.checked = !checkbox.checked;
+        
+        if (checkbox.checked) {
+          label.classList.remove("bg-emerald-medium/5", "border-beige-light/5", "text-beige-light/65");
+          label.classList.add("bg-emerald-medium/35", "border-gold-medium", "text-beige-light");
+          indicator.classList.remove("border", "border-beige-light/30");
+          indicator.classList.add("bg-gold-medium");
+          checkIcon.classList.remove("hidden");
+        } else {
+          label.classList.add("bg-emerald-medium/5", "border-beige-light/5", "text-beige-light/65");
+          label.classList.remove("bg-emerald-medium/35", "border-gold-medium", "text-beige-light");
+          indicator.classList.add("border", "border-beige-light/30");
+          indicator.classList.remove("bg-gold-medium");
+          checkIcon.classList.add("hidden");
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "R4R Newsletter signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the Movement"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subscribe for collection launches, local circle announcements, and details on how to apply for our ambassador program."
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Newsletter signup"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,274 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="community"
+  class="relative py-24 md:py-32 bg-beige-dark overflow-hidden"
+>
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-emerald-medium/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+    
+    {/* Header */}
+    <div class="text-center max-w-2xl mx-auto mb-20">
+      <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
+        {{ section.settings.chapter_title | escape }}
+      </span>
+      <h2 class="font-serif font-semibold text-3xl md:text-5xl text-emerald-dark mb-4">
+        {{ section.settings.heading | escape }}
+      </h2>
+      <p class="font-sans text-charcoal/60 font-light text-base md:text-lg">
+        {{ section.settings.subheading | escape }}
+      </p>
+    </div>
+
+    {/* Stories Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start r4r-stories-grid">
+      {%- for block in section.blocks -%}
+        <div
+          class="r4r-story-card bg-beige-light rounded-3xl overflow-hidden border border-emerald-medium/5 shadow-md hover:shadow-lg transition-all duration-300 md:col-span-6 lg:col-span-4"
+          data-story-id="{{ block.id }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="flex flex-col r4r-story-flex">
+            
+            {/* Photo cover container */}
+            <div class="relative overflow-hidden shrink-0 h-[280px] w-full r4r-story-photo">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 800 }}"
+                  alt="{{ block.settings.name | escape }}"
+                  class="w-full h-full object-cover filter brightness-[0.97]"
+                />
+              {%- else -%}
+                <div class="w-full h-full bg-emerald-dark/10 flex items-center justify-center text-emerald-dark/30">
+                  <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path></svg>
+                </div>
+              {%- endif -%}
+
+              {/* Color wash overlay */}
+              {%- if block.settings.overlay_color != blank -%}
+                <div
+                  class="absolute inset-0 opacity-15 mix-blend-overlay"
+                  style="background-color: {{ block.settings.overlay_color }};"
+                ></div>
+              {%- endif -%}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+              
+              {/* Small overlay badge on photo */}
+              <div class="absolute bottom-6 left-6 z-10 text-beige-light">
+                <span class="font-sans text-[10px] tracking-widest uppercase font-semibold text-gold-light">
+                  {{ block.settings.role | escape }}
+                </span>
+                <h4 class="font-serif font-semibold text-xl mt-1">
+                  {{ block.settings.name | escape }}
+                </h4>
+              </div>
+            </div>
+
+            {/* Narrative details container */}
+            <div class="p-8 md:p-10 flex flex-col justify-between flex-grow r4r-story-details">
+              <div>
+                {/* Quote layout */}
+                <div class="relative">
+                  <svg class="w-10 h-10 text-gold-medium/15 absolute -top-4 -left-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.995 2.638-4.995 5.813h4.995V21H14.017Zm-11 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.154c-2.433.914-5.006 2.636-5.006 5.81h5.006V21H3.017Z"></path>
+                  </svg>
+                  <p class="font-serif italic text-base md:text-lg text-emerald-dark leading-relaxed relative z-10 pl-2">
+                    "{{ block.settings.quote | escape }}"
+                  </p>
+                </div>
+
+                {/* Expandable full story block */}
+                <div class="r4r-story-bio max-h-0 opacity-0 pointer-events-none overflow-hidden transition-all duration-500">
+                  <div class="border-t border-emerald-medium/10 pt-6 mt-6 space-y-4">
+                    <h5 class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium">
+                      Full Biography &bull; Rebuilding Life
+                    </h5>
+                    <p class="font-sans text-sm md:text-base text-charcoal/75 leading-relaxed font-light">
+                      {{ block.settings.full_story | escape }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Expand Inline CTA */}
+              <div class="mt-8 pt-4 border-t border-emerald-medium/5 flex justify-end">
+                <button
+                  type="button"
+                  class="r4r-story-toggle-btn font-sans text-xs tracking-widest font-bold uppercase text-emerald-medium hover:text-gold-medium transition-colors flex items-center gap-1.5 py-1 px-3 rounded-full hover:bg-emerald-medium/5"
+                >
+                  <span class="btn-text">Read Journey</span>
+                  <svg class="btn-icon w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path></svg>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      {%- else -%}
+        <p class="col-span-12 text-center text-charcoal/50 italic py-12">No stories added yet. Please configure stories blocks in the Theme Customizer.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% comment %} Vanilla JS FLIP-like cards expansion {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const cards = document.querySelectorAll("#community .r4r-story-card");
+
+    cards.forEach(card => {
+      const toggleBtn = card.querySelector(".r4r-story-toggle-btn");
+      const bioBlock = card.querySelector(".r4r-story-bio");
+      const flexContainer = card.querySelector(".r4r-story-flex");
+      const photo = card.querySelector(".r4r-story-photo");
+      const btnText = card.querySelector(".btn-text");
+      const btnIcon = card.querySelector(".btn-icon");
+
+      toggleBtn.addEventListener("click", function() {
+        const isExpanded = card.classList.contains("md:col-span-12");
+
+        // Collapse all first (optional, but keeps UI clean)
+        cards.forEach(c => {
+          if (c !== card && c.classList.contains("md:col-span-12")) {
+            c.classList.remove("md:col-span-12", "shadow-xl", "ring-1", "ring-gold-medium/10");
+            c.classList.add("md:col-span-6", "lg:col-span-4");
+            c.querySelector(".r4r-story-bio").classList.add("max-h-0", "opacity-0", "pointer-events-none");
+            c.querySelector(".r4r-story-flex").classList.remove("lg:flex-row");
+            c.querySelector(".r4r-story-photo").classList.remove("h-[280px]", "lg:h-[450px]", "lg:w-[45%]", "w-full");
+            c.querySelector(".r4r-story-photo").classList.add("h-[280px]", "w-full");
+            c.querySelector(".btn-text").textContent = "Read Journey";
+            c.querySelector(".btn-icon").style.transform = "rotate(0deg)";
+          }
+        });
+
+        if (!isExpanded) {
+          // Expand
+          card.classList.remove("md:col-span-6", "lg:col-span-4");
+          card.classList.add("md:col-span-12", "shadow-xl", "ring-1", "ring-gold-medium/10");
+          
+          bioBlock.classList.remove("max-h-0", "opacity-0", "pointer-events-none");
+          bioBlock.classList.add("max-h-[500px]", "opacity-100");
+          
+          flexContainer.classList.add("lg:flex-row");
+          
+          photo.classList.remove("h-[280px]", "w-full");
+          photo.classList.add("h-[280px]", "lg:h-[450px]", "lg:w-[45%]", "w-full");
+          
+          btnText.textContent = "Collapse Story";
+          btnIcon.style.transform = "rotate(180deg)";
+        } else {
+          // Collapse
+          card.classList.remove("md:col-span-12", "shadow-xl", "ring-1", "ring-gold-medium/10");
+          card.classList.add("md:col-span-6", "lg:col-span-4");
+          
+          bioBlock.classList.add("max-h-0", "opacity-0", "pointer-events-none");
+          bioBlock.classList.remove("max-h-[500px]", "opacity-100");
+          
+          flexContainer.classList.remove("lg:flex-row");
+          
+          photo.classList.remove("h-[280px]", "lg:h-[450px]", "lg:w-[45%]", "w-full");
+          photo.classList.add("h-[280px]", "w-full");
+          
+          btnText.textContent = "Read Journey";
+          btnIcon.style.transform = "rotate(0deg)";
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "R4R Community Stories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chapter_title",
+      "label": "Chapter Title",
+      "default": "Chapter 05 • Community Stories"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Resilience Lives Here"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real stories of growth, healing, and hope from mothers and advocates in our global community."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Community Story",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Storyteller Name",
+          "default": "Sarah Jenkins"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role/Identifier",
+          "default": "Mother of Two"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Profile Image"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Color Wash Overlay",
+          "default": "#064e3b"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Key Quote Summary",
+          "default": "The local mother support circle funded by R4R literally changed the trajectory of my postpartum recovery. I found my breath again."
+        },
+        {
+          "type": "textarea",
+          "id": "full_story",
+          "label": "Full Biography / Journey",
+          "default": "After my second child, I struggled with severe postpartum anxiety. I felt isolated and overwhelmed. Through Rooted 4 Resilience grants, I was connected to a weekly therapist-led motherhood support circle. Having a safe, GOTS-organic swaddled baby next to me and a community of mothers who understood what I was going through gave me the strength to heal and step back into my voice. Today, I lead circle groups myself."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Community Stories",
+      "blocks": [
+        {
+          "type": "story",
+          "settings": {
+            "name": "Elena Rostova",
+            "role": "Single Mom & Writer",
+            "quote": "Standing tall was hard, but knowing there are resources and collections crafted to back us up made me realize I am not walking alone.",
+            "full_story": "Elena was one of the first recipients of the crisis housing subsidies, which provided her and her toddler a warm, secure apartment for 6 months after an unexpected eviction. During that period, she established her freelance writing career and secured permanent housing, proving that stability breeds resilience."
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "name": "Dr. Maya Patil",
+            "role": "Maternal Psychologist",
+            "quote": "We focus on structural recovery. R4R funding bypasses corporate red tape to directly cover session fees for mothers who need it today.",
+            "full_story": "Dr. Maya Patil runs the maternal care networks that partner with R4R. She has overseen the distribution of over 300 therapist hours funded directly by purchases of Rooted 4 Resilience luxury apparel. The impact of early mental health support prevents long-term postpartum struggles."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

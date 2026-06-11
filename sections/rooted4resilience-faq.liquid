@@ -1,0 +1,97 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="faq"
+  class="py-24 md:py-32 bg-beige-dark relative overflow-hidden"
+>
+  {% comment %} Background decorative elements {% endcomment %}
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-emerald-medium/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    
+    {/* Title */}
+    <div class="text-center mb-16">
+      <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
+        {{ section.settings.chapter_title | escape }}
+      </span>
+      <h2 class="font-serif font-semibold text-3xl md:text-5xl text-emerald-dark mb-4">
+        {{ section.settings.heading | escape }}
+      </h2>
+      <p class="font-sans text-charcoal/60 font-light text-base md:text-lg">
+        {{ section.settings.subheading | escape }}
+      </p>
+    </div>
+
+    {/* Accordion List */}
+    <div class="space-y-4 r4r-faq-list">
+      {%- for block in section.blocks -%}
+        <div
+          class="r4r-faq-item bg-beige-light rounded-2xl border border-emerald-medium/5 overflow-hidden shadow-sm hover:shadow transition-shadow duration-300"
+          {{ block.shopify_attributes }}
+        >
+          <button
+            type="button"
+            class="r4r-faq-trigger w-full px-6 py-5 md:py-6 flex items-center justify-between text-left font-serif font-medium text-emerald-dark text-base md:text-lg hover:text-gold-medium transition-colors"
+          >
+            <span class="flex items-center gap-3 pr-4">
+              <svg class="w-5 h-5 text-gold-medium shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              {{ block.settings.question | escape }}
+            </span>
+            <svg class="r4r-faq-icon w-5 h-5 text-emerald-medium transition-transform duration-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path></svg>
+          </button>
+
+          {/* Animated Drawer */}
+          <div class="r4r-faq-drawer max-h-0 opacity-0 pointer-events-none overflow-hidden transition-all duration-500 ease-in-out">
+            <p class="p-6 text-sm md:text-base text-charcoal/75 font-sans leading-relaxed font-light border-t border-emerald-medium/5">
+              {{ block.settings.answer | escape }}
+            </p>
+          </div>
+        </div>
+      {%- else -%}
+        <p class="text-charcoal/50 italic py-6 text-center">No FAQ questions configured yet.</p>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% comment %} FAQ Toggler JS {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const faqItems = document.querySelectorAll("#faq .r4r-faq-item");
+
+    faqItems.forEach(item => {
+      const trigger = item.querySelector(".r4r-faq-trigger");
+      const drawer = item.querySelector(".r4r-faq-drawer");
+      const icon = item.querySelector(".r4r-faq-icon");
+
+      trigger.addEventListener("click", function() {
+        const isOpen = item.classList.contains("active");
+
+        // Close other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains("active")) {
+            otherItem.classList.remove("active");
+            otherItem.querySelector(".r4r-faq-drawer").classList.add("max-h-0", "opacity-0", "pointer-events-none");
+            otherItem.querySelector(".r4r-faq-drawer").classList.remove("opacity-100");
+            otherItem.querySelector(".r4r-faq-icon").style.transform = "rotate(0deg)";
+          }
+        });
+
+        if (!isOpen) {
+          // Open
+          item.classList.add("active");
+          drawer.classList.remove("max-h-0", "opacity-0", "pointer-events-none");
+          drawer.classList.add("max-h-[300px]", "opacity-100");
+          icon.style.transform = "rotate(180deg)";
+        } else {
+          // Close
+          item.classList.remove("active");
+          drawer.classList.add("max-h-0", "opacity-0", "pointer-events-none");
+          drawer.classList.remove("max-h-[300px]", "opacity-100");
+          icon.style.transform = "rotate(0deg)";
+        }
+      });
+    });
+  });
+</script>

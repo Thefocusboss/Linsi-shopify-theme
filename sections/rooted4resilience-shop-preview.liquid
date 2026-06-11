@@ -1,0 +1,201 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="shop"
+  class="py-24 md:py-32 bg-beige-dark relative overflow-hidden"
+>
+  {% comment %} Background decorative blobs {% endcomment %}
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-emerald-medium/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+    {/* Title Block */}
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="font-sans text-xs tracking-widest font-semibold uppercase text-gold-medium mb-3 block">
+        {{ section.settings.chapter_title | escape }}
+      </span>
+      <h2 class="font-serif font-semibold text-3xl md:text-5xl text-emerald-dark mb-4">
+        {{ section.settings.heading | escape }}
+      </h2>
+      <p class="font-sans text-charcoal/60 font-light text-base md:text-lg">
+        {{ section.settings.subheading | escape }}
+      </p>
+    </div>
+
+    {/* Tab Filters */}
+    <div class="flex justify-center gap-3 sm:gap-6 mb-16 border-b border-emerald-medium/10 pb-6 max-w-md mx-auto">
+      {%- if section.settings.collection_1 != blank -%}
+        <button
+          type="button"
+          data-tab="col-1"
+          class="r4r-shop-tab font-sans text-xs sm:text-sm font-semibold tracking-widest uppercase pb-2.5 transition-all duration-300 relative text-emerald-dark font-bold active"
+        >
+          {{ section.settings.collection_1_title | default: collections[section.settings.collection_1].title | escape }}
+          <div class="tab-indicator absolute bottom-0 left-0 w-full h-[2px] bg-gold-medium"></div>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.collection_2 != blank -%}
+        <button
+          type="button"
+          data-tab="col-2"
+          class="r4r-shop-tab font-sans text-xs sm:text-sm font-semibold tracking-widest uppercase pb-2.5 transition-all duration-300 relative text-charcoal/40 hover:text-emerald-dark"
+        >
+          {{ section.settings.collection_2_title | default: collections[section.settings.collection_2].title | escape }}
+          <div class="tab-indicator absolute bottom-0 left-0 w-full h-[2px] bg-gold-medium hidden"></div>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.collection_3 != blank -%}
+        <button
+          type="button"
+          data-tab="col-3"
+          class="r4r-shop-tab font-sans text-xs sm:text-sm font-semibold tracking-widest uppercase pb-2.5 transition-all duration-300 relative text-charcoal/40 hover:text-emerald-dark"
+        >
+          {{ section.settings.collection_3_title | default: collections[section.settings.collection_3].title | escape }}
+          <div class="tab-indicator absolute bottom-0 left-0 w-full h-[2px] bg-gold-medium hidden"></div>
+        </button>
+      {%- endif -%}
+    </div>
+
+    {/* Grids Container */}
+    <div class="relative w-full">
+      
+      {% comment %} Collection 1 Grid {% endcomment %}
+      {%- if section.settings.collection_1 != blank -%}
+        <div id="col-1-grid" class="r4r-product-grid grid grid-cols-1 md:grid-cols-3 gap-10 opacity-100 transition-all duration-500">
+          {%- assign col1 = collections[section.settings.collection_1] -%}
+          {%- for product in col1.products limit: 3 -%}
+            {% render 'r4r-product-card', product: product %}
+          {%- else -%}
+            <p class="col-span-3 text-center text-charcoal/50 italic py-12">No products found in this collection.</p>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {% comment %} Collection 2 Grid {% endcomment %}
+      {%- if section.settings.collection_2 != blank -%}
+        <div id="col-2-grid" class="r4r-product-grid grid grid-cols-1 md:grid-cols-3 gap-10 hidden opacity-0 transition-all duration-500">
+          {%- assign col2 = collections[section.settings.collection_2] -%}
+          {%- for product in col2.products limit: 3 -%}
+            {% render 'r4r-product-card', product: product %}
+          {%- else -%}
+            <p class="col-span-3 text-center text-charcoal/50 italic py-12">No products found in this collection.</p>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {% comment %} Collection 3 Grid {% endcomment %}
+      {%- if section.settings.collection_3 != blank -%}
+        <div id="col-3-grid" class="r4r-product-grid grid grid-cols-1 md:grid-cols-3 gap-10 hidden opacity-0 transition-all duration-500">
+          {%- assign col3 = collections[section.settings.collection_3] -%}
+          {%- for product in col3.products limit: 3 -%}
+            {% render 'r4r-product-card', product: product %}
+          {%- else -%}
+            <p class="col-span-3 text-center text-charcoal/50 italic py-12">No products found in this collection.</p>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% comment %} Vanilla JS tab switching logic {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const tabs = document.querySelectorAll("#shop .r4r-shop-tab");
+    const grids = document.querySelectorAll("#shop .r4r-product-grid");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", function() {
+        const targetGridId = this.getAttribute("data-tab") + "-grid";
+        
+        // Update tab styles
+        tabs.forEach(t => {
+          t.classList.remove("text-emerald-dark", "font-bold", "active");
+          t.classList.add("text-charcoal/40");
+          t.querySelector(".tab-indicator").classList.add("hidden");
+        });
+        this.classList.add("text-emerald-dark", "font-bold", "active");
+        this.classList.remove("text-charcoal/40");
+        this.querySelector(".tab-indicator").classList.remove("hidden");
+
+        // Switch grids
+        grids.forEach(grid => {
+          if (grid.id === targetGridId) {
+            grid.classList.remove("hidden");
+            // small timeout to trigger transition
+            setTimeout(() => {
+              grid.classList.add("opacity-100");
+              grid.classList.remove("opacity-0");
+            }, 50);
+          } else {
+            grid.classList.add("hidden", "opacity-0");
+            grid.classList.remove("opacity-100");
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "R4R Shop Preview",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chapter_title",
+      "label": "Chapter Title",
+      "default": "Chapter 03 • Featured Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wear Your Resilience"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Organic threads woven with purpose. Each garment carries a $5 contribution towards mothers in need."
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "text",
+      "id": "collection_1_title",
+      "label": "Collection 1 Title Override"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    },
+    {
+      "type": "text",
+      "id": "collection_2_title",
+      "label": "Collection 2 Title Override"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection 3"
+    },
+    {
+      "type": "text",
+      "id": "collection_3_title",
+      "label": "Collection 3 Title Override"
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Shop Preview"
+    }
+  ]
+}
+{% endschema %}
