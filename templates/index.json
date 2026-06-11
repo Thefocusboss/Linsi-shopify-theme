@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "r4r_header": {
+      "type": "rooted4resilience-header",
+      "settings": {}
+    },
     "r4r_hero": {
       "type": "rooted4resilience-homepage",
       "settings": {}
@@ -668,6 +672,7 @@
     }
   },
   "order": [
+    "r4r_header",
     "r4r_hero",
     "r4r_founder_story",
     "r4r_shop_preview",

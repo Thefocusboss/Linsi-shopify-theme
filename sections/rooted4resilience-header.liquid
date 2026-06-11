@@ -1,0 +1,299 @@
+{{ 'r4r-bundle.css' | asset_url | stylesheet_tag }}
+
+{%- assign main_menu = linklists[section.settings.menu] -%}
+
+<div id="r4r-header-wrapper" class="relative w-full z-50">
+  
+  {% comment %} ── Announcement Bar ─────────────────────────────────────── {% endcomment %}
+  {%- if section.settings.announcement_text != blank -%}
+    <div class="w-full bg-emerald-dark text-gold-pale text-xs py-2.5 px-4 text-center font-sans tracking-widest font-medium uppercase border-b border-emerald-medium/30">
+      {{ section.settings.announcement_text | escape }}
+    </div>
+  {%- endif -%}
+
+  {% comment %} ── Navigation Header ────────────────────────────────────── {% endcomment %}
+  <header
+    id="r4r-navigation-header"
+    class="w-full transition-all duration-500 absolute left-0 top-full z-50 bg-transparent py-5"
+    data-logo-white="{%- if section.settings.logo_white != blank -%}{{ section.settings.logo_white | image_url: width: 250 }}{%- else -%}{{ 'logo-white.png' | asset_url }}{%- endif -%}"
+    data-logo-dark="{%- if section.settings.logo_dark != blank -%}{{ section.settings.logo_dark | image_url: width: 250 }}{%- else -%}{{ 'logo-dark.png' | asset_url }}{%- endif -%}"
+  >
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+
+      {% comment %} Logo {% endcomment %}
+      <a href="#hero" class="flex items-center select-none group r4r-scroll-link">
+        <img
+          id="r4r-header-logo-img"
+          src="{%- if section.settings.logo_white != blank -%}{{ section.settings.logo_white | image_url: width: 250 }}{%- else -%}{{ 'logo-white.png' | asset_url }}{%- endif -%}"
+          alt="Rooted 4 Resilience"
+          class="h-8 md:h-9 w-auto object-contain transition-all duration-500 group-hover:opacity-80"
+        />
+      </a>
+
+      {% comment %} Desktop Nav {% endcomment %}
+      <nav class="hidden lg:flex items-center gap-8 font-sans text-sm tracking-widest font-medium uppercase">
+        {%- for link in main_menu.links -%}
+          <a
+            href="{{ link.url }}"
+            class="r4r-nav-link transition-colors duration-300 relative text-white/90 hover:text-gold-light
+              after:content-[''] after:absolute after:bottom-[-4px] after:left-0
+              after:w-full after:h-[1px] after:bg-gold-medium after:scale-x-0
+              hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            {{ link.title }}
+          </a>
+        {%- endfor -%}
+      </nav>
+
+      {% comment %} Right Actions {% endcomment %}
+      <div class="flex items-center gap-4">
+        
+        {% comment %} Cart Bag button {% endcomment %}
+        <a href="{{ routes.cart_url }}" class="r4r-icon-btn relative p-1.5 rounded-full transition-colors text-white/90 hover:text-gold-light">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="absolute -top-1 -right-1 bg-gold-medium text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+            {{ cart.item_count }}
+          </span>
+        </a>
+
+        {% comment %} CTA button {% endcomment %}
+        {%- if section.settings.cta_text != blank -%}
+          <a
+            href="{{ section.settings.cta_link }}"
+            class="r4r-cta-btn hidden sm:inline-block font-sans text-xs tracking-widest font-semibold uppercase
+              px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm
+              hover:shadow hover:scale-105 active:scale-95 border
+              bg-white/15 hover:bg-white/25 text-white border-white/30 backdrop-blur-sm"
+          >
+            {{ section.settings.cta_text | escape }}
+          </a>
+        {%- endif -%}
+
+        {% comment %} Mobile Menu Button {% endcomment %}
+        <button
+          type="button"
+          id="r4r-mobile-menu-trigger"
+          class="r4r-mobile-btn lg:hidden p-1 transition-colors text-white/90 hover:text-gold-light"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  {% comment %} ── Mobile Drawer ────────────────────────────────────────── {% endcomment %}
+  <div
+    id="r4r-mobile-drawer-overlay"
+    class="fixed inset-0 z-50 bg-emerald-dark/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+  >
+    <div
+      id="r4r-mobile-drawer"
+      class="absolute right-0 top-0 h-full w-[280px] bg-beige-light shadow-2xl p-8 flex flex-col justify-between
+        transition-transform duration-500 ease-out transform translate-x-full"
+    >
+      <div>
+        <div class="flex items-center justify-between border-b border-emerald-medium/10 pb-5 mb-8">
+          <img
+            src="{%- if section.settings.logo_dark != blank -%}{{ section.settings.logo_dark | image_url: width: 200 }}{%- else -%}{{ 'logo-dark.png' | asset_url }}{%- endif -%}"
+            alt="R4R"
+            class="h-7 w-auto object-contain"
+          />
+          <button
+            type="button"
+            id="r4r-mobile-menu-close"
+            class="text-emerald-dark hover:text-gold-medium transition-colors p-1"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <nav class="flex flex-col gap-6 font-sans text-sm tracking-widest font-medium uppercase">
+          {%- for link in main_menu.links -%}
+            <a
+              href="{{ link.url }}"
+              class="r4r-mobile-link text-emerald-dark hover:text-gold-medium transition-colors py-1.5 text-left"
+            >
+              {{ link.title }}
+            </a>
+          {%- endfor -%}
+        </nav>
+      </div>
+
+      {%- if section.settings.cta_text != blank -%}
+        <div class="border-t border-emerald-medium/10 pt-6">
+          <a
+            href="{{ section.settings.cta_link }}"
+            class="w-full text-center block bg-emerald-medium hover:bg-emerald-dark text-beige-light font-sans text-xs tracking-widest font-semibold uppercase py-3 rounded-full transition-all duration-300"
+          >
+            {{ section.settings.cta_text | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+</div>
+
+{% comment %} Sticky Header and Drawer scripts {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const header = document.getElementById("r4r-navigation-header");
+    const logoImg = document.getElementById("r4r-header-logo-img");
+    const navLinks = document.querySelectorAll("#r4r-navigation-header .r4r-nav-link");
+    const iconBtns = document.querySelectorAll("#r4r-navigation-header .r4r-icon-btn");
+    const ctaBtn = document.querySelector("#r4r-navigation-header .r4r-cta-btn");
+    const mobileBtn = document.getElementById("r4r-mobile-menu-trigger");
+
+    // Drawer elements
+    const drawerOverlay = document.getElementById("r4r-mobile-drawer-overlay");
+    const drawer = document.getElementById("r4r-mobile-drawer");
+    const drawerTrigger = document.getElementById("r4r-mobile-menu-trigger");
+    const drawerClose = document.getElementById("r4r-mobile-menu-close");
+    const mobileLinks = document.querySelectorAll("#r4r-mobile-drawer .r4r-mobile-link");
+
+    const logoWhite = header.getAttribute("data-logo-white");
+    const logoDark = header.getAttribute("data-logo-dark");
+
+    let isScrolled = false;
+
+    function handleScroll() {
+      const scrollPos = window.scrollY;
+      
+      if (scrollPos > 40 && !isScrolled) {
+        isScrolled = true;
+        // Scrolled Glassmorphism State
+        header.classList.remove("absolute", "top-full", "bg-transparent", "py-5");
+        header.classList.add("fixed", "top-0", "glassmorphism", "shadow-md", "border-b", "border-emerald-medium/10", "py-3");
+        
+        logoImg.src = logoDark;
+        
+        navLinks.forEach(link => {
+          link.classList.remove("text-white/90", "hover:text-gold-light");
+          link.classList.add("text-emerald-dark", "hover:text-gold-medium");
+        });
+
+        iconBtns.forEach(btn => {
+          btn.classList.remove("text-white/90", "hover:text-gold-light");
+          btn.classList.add("text-emerald-dark", "hover:text-gold-medium");
+        });
+
+        if (ctaBtn) {
+          ctaBtn.classList.remove("bg-white/15", "hover:bg-white/25", "text-white", "border-white/30");
+          ctaBtn.classList.add("bg-emerald-medium", "hover:bg-emerald-dark", "text-beige-light", "border-emerald-medium/10");
+        }
+
+        mobileBtn.classList.remove("text-white/90", "hover:text-gold-light");
+        mobileBtn.classList.add("text-emerald-dark", "hover:text-gold-medium");
+
+      } else if (scrollPos <= 40 && isScrolled) {
+        isScrolled = false;
+        // Top Transparent Overlay State
+        header.classList.add("absolute", "top-full", "bg-transparent", "py-5");
+        header.classList.remove("fixed", "top-0", "glassmorphism", "shadow-md", "border-b", "border-emerald-medium/10", "py-3");
+        
+        logoImg.src = logoWhite;
+
+        navLinks.forEach(link => {
+          link.classList.add("text-white/90", "hover:text-gold-light");
+          link.classList.remove("text-emerald-dark", "hover:text-gold-medium");
+        });
+
+        iconBtns.forEach(btn => {
+          btn.classList.add("text-white/90", "hover:text-gold-light");
+          btn.classList.remove("text-emerald-dark", "hover:text-gold-medium");
+        });
+
+        if (ctaBtn) {
+          ctaBtn.classList.add("bg-white/15", "hover:bg-white/25", "text-white", "border-white/30");
+          ctaBtn.classList.remove("bg-emerald-medium", "hover:bg-emerald-dark", "text-beige-light", "border-emerald-medium/10");
+        }
+
+        mobileBtn.classList.add("text-white/90", "hover:text-gold-light");
+        mobileBtn.classList.remove("text-emerald-dark", "hover:text-gold-medium");
+      }
+    }
+
+    // Scroll listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Mobile Drawer Handlers
+    function openDrawer() {
+      drawerOverlay.classList.remove("opacity-0", "pointer-events-none");
+      drawerOverlay.classList.add("opacity-100", "pointer-events-auto");
+      drawer.classList.remove("translate-x-full");
+      drawer.classList.add("translate-x-0");
+    }
+
+    function closeDrawer() {
+      drawerOverlay.classList.add("opacity-0", "pointer-events-none");
+      drawerOverlay.classList.remove("opacity-100", "pointer-events-auto");
+      drawer.classList.add("translate-x-full");
+      drawer.classList.remove("translate-x-0");
+    }
+
+    drawerTrigger.addEventListener("click", openDrawer);
+    drawerClose.addEventListener("click", closeDrawer);
+    drawerOverlay.addEventListener("click", closeDrawer);
+
+    // Smooth scroll offset link clicks
+    const scrollLinks = document.querySelectorAll(".r4r-scroll-link, .r4r-nav-link, .r4r-mobile-link");
+    scrollLinks.forEach(link => {
+      link.addEventListener("click", function(e) {
+        const href = this.getAttribute("href");
+        if (href.startsWith("#")) {
+          e.preventDefault();
+          closeDrawer();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "R4R Premium Navigation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "$5 from every order supports women, mothers, and families in resilience."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_white",
+      "label": "White Logo (Dark Background)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_dark",
+      "label": "Dark Logo (Light Background)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Pre-Order Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "R4R Premium Navigation"
+    }
+  ]
+}
+{% endschema %}
