@@ -97,10 +97,25 @@
         "founder_title": "Founder & Creative Director",
         "founder_quote": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
       }
+    },
+    "rooted4resilience_founder_story_yxQNN4": {
+      "type": "rooted4resilience-founder-story",
+      "name": "R4R Founder Story",
+      "settings": {
+        "chapter_title": "Chapter 02 • The Mission",
+        "heading": "Our Story of Strength",
+        "paragraph_1": "Rooted 4 Resilience was born out of a simple, powerful conviction: that style and substance should never be mutually exclusive. Our pieces represent more than sustainable, organic luxury—they are symbols of personal and collective strength.",
+        "paragraph_2": "We design with GOTS-certified organic cotton, clean tailoring, and custom botanical inspirations to create apparel that honors your body and the earth. But our true mission lies beyond the fabric.",
+        "paragraph_3": "For every garment purchased, we directly allocate $5 to support circles, maternal mental health therapy grants, and crisis housing. We believe that when you support a mother, you elevate an entire community.",
+        "founder_name": "Linsi",
+        "founder_title": "Founder & Creative Director",
+        "founder_quote": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
+      }
     }
   },
   "order": [
     "header_section",
-    "rooted4resilience_homepage_nYPRen"
+    "rooted4resilience_homepage_nYPRen",
+    "rooted4resilience_founder_story_yxQNN4"
   ]
 }
