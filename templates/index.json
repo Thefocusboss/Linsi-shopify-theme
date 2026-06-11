@@ -9,6 +9,44 @@
  */
 {
   "sections": {
+    "r4r_hero": {
+      "type": "rooted4resilience-homepage",
+      "settings": {}
+    },
+    "r4r_founder_story": {
+      "type": "rooted4resilience-founder-story",
+      "settings": {}
+    },
+    "r4r_shop_preview": {
+      "type": "rooted4resilience-shop-preview",
+      "settings": {
+        "collection_1": "all"
+      }
+    },
+    "r4r_partner_spotlight": {
+      "type": "rooted4resilience-partner-spotlight",
+      "settings": {}
+    },
+    "r4r_community_stories": {
+      "type": "rooted4resilience-community-stories",
+      "settings": {}
+    },
+    "r4r_podcast": {
+      "type": "rooted4resilience-podcast",
+      "settings": {}
+    },
+    "r4r_transparency": {
+      "type": "rooted4resilience-transparency",
+      "settings": {}
+    },
+    "r4r_faq": {
+      "type": "rooted4resilience-faq",
+      "settings": {}
+    },
+    "r4r_email_capture": {
+      "type": "rooted4resilience-email-capture",
+      "settings": {}
+    },
     "hero_RkimKJ": {
       "type": "hero",
       "blocks": {
@@ -630,8 +668,14 @@
     }
   },
   "order": [
-    "hero_RkimKJ",
-    "product_list_X8Q7bi",
-    "section_RhpYRt"
+    "r4r_hero",
+    "r4r_founder_story",
+    "r4r_shop_preview",
+    "r4r_partner_spotlight",
+    "r4r_community_stories",
+    "r4r_podcast",
+    "r4r_transparency",
+    "r4r_faq",
+    "r4r_email_capture"
   ]
 }
