@@ -97,10 +97,25 @@
         "founder_title": "Founder & Creative Director",
         "founder_quote": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
       }
+    },
+    "rooted4resilience_homepage_xipM3W": {
+      "type": "rooted4resilience-homepage",
+      "name": "R4R Premium Homepage",
+      "settings": {
+        "announcement_text": "$5 from every order supports women, mothers, and families in resilience.",
+        "hero_headline": "Resilience Looks Good on You",
+        "hero_subheadline": "Luxury organic apparel backing our non-profit mission to support, elevate, and empower mothers and communities.",
+        "hero_video_url": "https://assets.mixkit.co/videos/preview/mixkit-group-of-women-talking-smiling-and-hugging-39879-large.mp4",
+        "hero_cta": "Wear Your Resilience",
+        "founder_name": "Linsi",
+        "founder_title": "Founder & Creative Director",
+        "founder_quote": "We built Rooted 4 Resilience to blend the elegance of premium sustainable fashion with the heartbeat of real community support."
+      }
     }
   },
   "order": [
     "header_section",
-    "rooted4resilience_homepage_nYPRen"
+    "rooted4resilience_homepage_nYPRen",
+    "rooted4resilience_homepage_xipM3W"
   ]
 }
